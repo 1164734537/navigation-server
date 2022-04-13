@@ -5,18 +5,8 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
-
 const routers = require('./routers/index')
-
-// const index = require('./routes/index')
-// const users = require('./routes/users')
-
-
-// router.get('/', async (ctx, next) => {
-//   await ctx.render('index', {
-//     title: 'Hello Koa 2!'
-//   })
-// })
+const log4js = require('./utils/log4j')
 
 // error handler
 onerror(app)
@@ -35,6 +25,7 @@ app.use(views(__dirname + '/views', {
 
 // logger
 app.use(async (ctx, next) => {
+  log4js.debug('访问')
   const start = new Date()
   await next()
   const ms = new Date() - start
@@ -42,9 +33,6 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-// app.use(index.routes(), index.allowedMethods())
-// app.use(users.routes(), users.allowedMethods())
-
 app.use(routers.routes()).use(routers.allowedMethods())
 
 // error-handling

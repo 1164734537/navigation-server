@@ -4,7 +4,6 @@
 const mongoose = require('mongoose')
 const config = require('./index')
 const log4js = require('./../utils/log4j')
-console.log(config)
 mongoose.connect(config.URL,
     {useNewUrlParser: true, 
      useUnifiedTopology: true

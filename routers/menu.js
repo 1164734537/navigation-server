@@ -1,8 +1,16 @@
 const router = require('koa-router')()
-
+const Menu = require('./../models/menuSchema')
+const util = require('./../utils/util')
 const routers = router
 .get('/list', async (ctx)=>{
-    ctx.body ='menulist'
+    // ctx.set("Content-Type", "application/json")
+    try {
+       const menulist =  await Menu.find()
+       ctx.body = util.success(menulist)
+    } catch (error) {
+        ctx.body = util.fail(error.msg)
+    }
+    // ctx.body ='menulist'
 })
 
 module.exports = routers

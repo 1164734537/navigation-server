@@ -7,12 +7,14 @@
 var app = require('../app');
 var debug = require('debug')('demo:server');
 var http = require('http');
+var log4js = require('../utils/log4j')
 
 /**
  * Get port from environment and store in Express.
  */
 
 var port = normalizePort(process.env.PORT || '3000');
+log4js.info(`server run in port ${port}`)
 // app.set('port', port);
 
 /**

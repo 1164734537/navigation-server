@@ -9,7 +9,16 @@ const log4js = require('./utils/log4j')
 const cors = require('koa2-cors');
 
 // 跨域
-app.use(cors())
+app.use(cors({
+  origin: function(ctx) { // 设置允许来自指定域名请求
+    const whiteList = ['http://www.hangbb.cn', 'http://localhost:8080', 'http://localhost:8081']; //可跨域白名单
+    let url = ctx.header.referer.substring(0,ctx.header.referer.length - 1);
+    if(whiteList.includes(url)){
+      return url // 注意，这里域名末尾不能带/, 否则不成功，所以我在之前把 / 干掉
+    }
+    return 'http://localhost:8080' // 默认允许本地请求8080端口可跨域
+  }
+}))
 
 // error handler
 onerror(app)
